@@ -24,6 +24,9 @@ const {
   mesErrUserEducationPast400,
   mesErrDeleteUser406,
   mesErrNoProgramm404,
+  mesErrIdQuestionnaire400,
+  mesErrValidationQuestionnaire400,
+  mesErrConflictQuestionnaire409,
 } = require('../utils/messageServer');
 
 module.exports.getUsers = (req, res, next) => {
@@ -66,9 +69,6 @@ module.exports.createUser = (req, res, next) => {
       // создание пользователя с открытым паролем
       User.find({})
         .then((users)=>{
-          if (users.length === 0) {
-            throw new NoDate_404(mesErrNoUser404);
-          };
           const newNameUser = translit(userQuestionnaire.firstName).split('-')[0].trim();
           const usersFilter = users.filter((item)=> item.name.split('-')[0] === newNameUser);
           let numberUser = 0;
@@ -100,7 +100,7 @@ module.exports.createUser = (req, res, next) => {
             })
             .catch((err) => {
               console.log(err);
-    
+
               if (err.name === 'ValidationError') {
                 next(new IncorrectData_400(mesErrValidationUser400));
                 return;
@@ -113,6 +113,35 @@ module.exports.createUser = (req, res, next) => {
             });
 
         })
+        .catch((err) => {
+          console.log(err.name);
+          if (err.name === 'CastError') {
+            next(new IncorrectData_400(mesErrIdUser400));
+            return;
+          }
+          if (err.name === 'TypeError') {
+            next(new NoDate_404(mesErrFixUpdateProgrammUser404));
+            return;
+          }
+          if (err.name === 'ValidationError') {
+            return next(new IncorrectData_400(mesErrValidationUser400));
+          }
+          next(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err.name);
+      if (err.name === 'CastError') {
+        next(new IncorrectData_400(mesErrIdQuestionnaire400));
+        return;
+      }
+      if (err.name === 'ValidationError') {
+        return next(new IncorrectData_400(mesErrValidationQuestionnaire400));
+      }
+      if (err.code === 11000) {
+        return next(new ConflictData_409(mesErrConflictQuestionnaire409));
+      }
+      next(err);
     });
 };
 
