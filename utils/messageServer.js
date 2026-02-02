@@ -17,7 +17,9 @@ module.exports = {
 
   // сообщения роута noAutorization и утилит
   mesErrNoEmailSending400: 'Нет почты для отправки анкеты',
-  mesErrEmailSending400: 'Анкета создана. Ошибка отправки письма', // реквизитов отправителя
+  // mesErrEmailSending400: 'Анкета создана. Ошибка отправки письма', // реквизитов отправителя
+  mesErrEmailSending400: 'Анкета создана!', // реквизитов отправителя
+
   mesErrEmailSendingQuestion400: 'Ошибка отправки письма', // реквизитов отправителя
   mesQuestionAndEmail: 'Анкета создана, письмо отправлено',
   mesQuestionnaire: 'Анкета создана',
