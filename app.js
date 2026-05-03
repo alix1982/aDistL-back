@@ -12,6 +12,7 @@ const { PORT, NODE_ENV, MONGO_URL } = process.env; // для локальног�
 
 const app = express();
 
+mongoose.set('strictQuery', false);
 mongoose.connect(MONGO_URL);
 
 app.use(express.json());
