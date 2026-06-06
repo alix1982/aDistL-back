@@ -20,7 +20,6 @@ app.use(requestLogger);
 app.use(cors);
 app.use('/api', routes);
 // app.use(routes);
-
 app.use(errorLogger);
 app.use(errors());
 app.use(centralErrors);
