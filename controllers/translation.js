@@ -18,25 +18,25 @@ const axios = require('axios');
 
 // тестирование на локальном сервере
 // const TERMINAL_KEY = process.env.TERMINAL_KEY_TEST;
-// const ORDER_URL = process.env.ORDER_URL_PROD;
+const ORDER_URL = process.env.ORDER_URL_PROD;
 // const PASSWORD = process.env.PASSWORD_TEST;
 
 // тестирование в проде
 const TERMINAL_KEY = process.env.TERMINAL_KEY_PROD;
-const ORDER_URL = process.env.ORDER_URL_TEST;
+// const ORDER_URL = process.env.ORDER_URL_TEST;
 const PASSWORD = process.env.PASSWORD_PROD;
 
 
 const createDonationOrder = async (req, res, next) => {
   const { amount, email } = req.body;
 
-
+  // console.log(typeof amount)
   // валидация входных данных
   if (!amount || typeof amount !== 'number' || amount <= 0) {
     return res.status(400).json({ error: 'Некорректная сумма доната' });
   }
 
-  const amountKopecks = Math.round(amount * 100);
+  // const amountKopecks = Math.round(amount * 100);
   const orderId = `donate_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
   let params = {
@@ -50,8 +50,8 @@ const createDonationOrder = async (req, res, next) => {
     "TerminalKey": TERMINAL_KEY,
     "Amount": amount*100,
     "OrderId": orderId,
-    // "Description": `Донат ${amount} руб. на развитие проекта`,
-    "Description": `Донат`,
+    "Description": `Донат ${amount} руб. на развитие проекта`,
+    // "Description": `Донат`,
     "Password": PASSWORD,
   };
   // формирование Token: сортировка ключей по алфавиту + Password в конце
@@ -82,7 +82,7 @@ const createDonationOrder = async (req, res, next) => {
     // const response = await axios.post(CREATE_ORDER_URL, params, {
     //   headers: { 'Content-Type': 'application/json' },
     // });
-    // console.log(config)
+    console.log(config)
     const response = await axios.request(config)
       // .then((response) => {
       //   console.log(JSON.stringify(response.data));
