@@ -33,7 +33,7 @@ const createDonationOrder = async (req, res, next) => {
   const { amount, email } = req.body;
 
   // валидация входных данных
-  if (!amount || typeof amount !== 'number' || amount <= 1) {
+  if (!amount || typeof amount !== 'number' || amount < 5) {
     return next(new IncorrectData_400(mesErrAmountDonat400));
   };
 
@@ -85,7 +85,6 @@ const createDonationOrder = async (req, res, next) => {
     if (!data.PaymentURL) {
       console.error('Нет PaymentURL в ответе эквайринга', data);
       return next(new IncorrectData_400(mesErrNoUrlDonat400));
-
     }
     return res.send(data.PaymentURL);
 
