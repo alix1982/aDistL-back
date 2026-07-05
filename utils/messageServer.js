@@ -75,4 +75,18 @@ module.exports = {
   mesErrConflictUser409: 'Пользователь с таким снилсом уже существует', // в роутах пользователей админа и авторизации
   mesErrNoGroup404: 'Группы не найдены', // в роутах пользователей, пользователей админа и групп
   mesErrConflictProgramm409: 'Программа с таким именем уже существует', // в роутах программ и групп
+
+    // сообщения роута donat
+  mesCreateFeedback: 'Отзыв сохранен',
+  mesErrDonat400: 'Не удалось создать платёж',
+  mesErrNoUrlDonat400: 'В ответе платёжной системы отсутствует ссылка на оплату',
+  mesErrValidationDonat400: 'Ошибка валидации модели доната',
+  mesErrAmountDonat400: 'Некорректная сумма доната',
+  mesErrConflictFeedback409: 'Отзыв уже существует',
+
+  // сообщения роута feedback
+  mesCreateFeedback: 'Отзыв сохранен',
+  mesErrLimitFeedback400: 'Большое количество отзывов, попробуйте позже.',
+  mesErrValidationFeedback400: 'Ошибка валидации модели отзывов',
+  // mesErrConflictFeedback409: 'Отзыв уже существует',
 };
