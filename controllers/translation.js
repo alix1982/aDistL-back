@@ -33,7 +33,7 @@ const createDonationOrder = async (req, res, next) => {
   const { amount, email } = req.body;
 
   // валидация входных данных
-  if (!amount || typeof amount !== 'number' || amount < 5) {
+  if (!amount || typeof amount !== 'number' || amount < 10) {
     return next(new IncorrectData_400(mesErrAmountDonat400));
   };
 
